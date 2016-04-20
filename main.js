@@ -22,8 +22,8 @@ app.use(express.static(__dirname + '/public'));
 var requestTokenUrl = "https://api.twitter.com/oauth/request_token";
 
 //To be obtained from the app created on Twitter
-var CONSUMER_KEY = "qNc5Kv6J9Tic0WOte3pGGYuSk";
-var CONSUMER_SECRET = "tNnHEv5SZ6PuFjwm9iSzQklI0bXlLhwA2F4NPuVCS8YBF370yH";
+var CONSUMER_KEY = "";
+var CONSUMER_SECRET = "";
 
 //Oauth Object to be used to obtain Request token from Twitter
 var oauth = {
