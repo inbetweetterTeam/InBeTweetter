@@ -114,7 +114,7 @@ app.get("/signin-with-twitter", function(req, res){
 	
     //SEND DIRECT MESSAGE
     /*var messUrl = "https://api.twitter.com/1.1/direct_messages/new.json" + "?"
-                  + qs.stringify({text:"@BeniaminoDaniel ti ha invitato alla stanza: www.twitter.com", screen_name: "@chiaracant16"});
+                  + qs.stringify({text:"@sender ti ha invitato alla stanza: www.twitter.com", screen_name: "@receiver"});
     request.post({url: messUrl, oauth: authenticationData, json:true});*/
     
 
