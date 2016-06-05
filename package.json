@@ -1,14 +1,21 @@
 {
-  "name": "myapp",
+  "name": "InBeTweetter",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "IBTeam",
+  "license": "MIT",
   "dependencies": {
-    "express": "^4.13.3"
+    "express": "^4.13.3",
+    "firebase": "^2.4.2",
+    "body-parser": "^1.15.0",
+    "cookie-parser": "^1.4.1",
+    "querystring": "^0.2.0",
+    "express-handlebars": "^3.0.0",
+    "request": "^2.69.0",
+    "shortid": "^2.2.6"
   }
 }

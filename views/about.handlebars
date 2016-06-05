@@ -1,0 +1,246 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="IBT, InBeTweetter, inbetweetter, tweetter, twitter, Twitter, Tweetter">
+    <meta name="description" content="InBeTweetter is the best way to meet your friends and loved ones. Thanks to an algorithm we created, we can suggest you the meeting location that is the nearest to the position of every invited person. An easier way to plan your hangouts.">
+    <link rel="shortcut icon" type="image/png" href="https://inbetweetter.herokuapp.com/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<link rel="stylesheet" href="./css/animate.min.css" />
+	<script src="./js/jquery-2.1.0.min.js"></script>
+	<script src="./js/bootstrap.min.js"></script>
+	<script src="./js/blocs.min.js"></script><link rel='stylesheet' href='./css/font-awesome.min.css'/><link rel='stylesheet' href='./css/ionicons.min.css'/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+
+    
+    
+    <title>InBeTweetter - About</title>
+</head>
+<body>
+<!-- Main container -->
+<div class="page-container">
+    
+<!-- Navigation Bloc -->
+<div id="b-nav" class="bloc-container">
+	<div id="bloc-nav" class="d-mode">
+		<div class="bloc l-bloc bgc-white" id="nav-bloc">
+			<div class="container bloc-sm">
+                <nav class="navbar row">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="/"><img src="img/backup-icon1.png" alt="logo" width="75" />InBeTweetter</a>
+                    </div>
+                    <ul class="site-navigation nav navbar-nav">
+                        <a class='dropdown-button btn btn-cornflower-blue' data-beloworigin="true" href='#' id ="drooms" data-activates='dropdown1'>ROOMS</a>
+                        <ul id='dropdown1' class='dropdown-content'>
+                            {{#rooms}}
+                            <li><a href=/room/{{id}}>{{name}}</a></li>
+                            {{/rooms}}
+                            <li class="divider"></li>
+                            <li><a href="/room">new room</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/logout"><font color="dd2929">Log-out</font></a></li>
+                        </ul>
+                    </ul>
+                </nav>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Navigation Bloc END -->
+
+<!-- bloc-5 -->
+<div class="bloc l-bloc bgc-white" id="bloc-5">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<h3 class="mg-md">
+					What is <b>InBeTweetter</b>?
+				</h3>
+				<p>
+					<b>InBeTweetter</b> is the best way to meet your friends and loved ones. Thanks to an algorithm we created, we can suggest you the meeting location that is the nearest to the position of every invited person. An easier way to plan your hangouts.
+				</p>
+                </br>
+                <h3 class="mg-md">
+                    How does it work?
+                </h3>
+                <p>
+                    When you login for the first time you get redirected to a new Room. From there you can invite your Twitter friends to join the Room. The map will automatically update the suggested meeting location while people join.
+                </p>
+                </br>
+                <h3 class="mg-md">
+                    How do I join a Room?
+                </h3>
+                <p>
+                Someone has to invite you to join the Room. The invitation is delivered via Twitter direct message.
+                </p>
+                </br>
+                <h3 class="mg-md">
+                    More details about <b>InBeTweetter</b>
+                </h3>
+                <p>
+                We try to deliver a flawless experience of use through a simple and minimalistic material design using MaterializeCSS. We make use of Twitter OAuth API to ensure your data is always safe and Google Maps API to give you the most up to date informations about places around you.
+                </p>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- bloc-5 END -->
+
+<!-- bloc-6 -->
+<div class="bloc l-bloc bgc-white" id="bloc-6">
+	<div class="container bloc-sm" id="team">
+		<div class="row voffset">
+			<div class="col-sm-12">
+				<h2 class="text-center mg-sm tc-cornflower-blue">
+					<strong>Developer Team</strong>
+				</h2>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- bloc-6 END -->
+
+<!-- bloc-7 -->
+<div class="bloc l-bloc bgc-white" id="bloc-7">
+	<div class="container">
+		<div class="row animated fadeIn">
+			<div class="col-sm-4">
+				<img src="img/11942311_10206567322375251_6837290157047955225_o.jpg" alt = "Chiara Cantelmi" class="img-circle center-block" height="150" />
+			</div>
+			<div class="col-sm-8">
+				<h3 class="mg-md">
+					Chiara Cantelmi
+				</h3>
+				<p>
+					Studentessa di Ingegneria informatica presso l&rsquo;università La Sapienza di Roma<br />
+				</p><a href="https://twitter.com/chiaracant16" target="_blank"><span class="fa fa-twitter-square icon-md pull-left"></span></a>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- bloc-7 END -->
+
+<!-- bloc-8 -->
+<div class="bloc l-bloc bgc-white" id="bloc-8">
+	<div class="container bloc-sm">
+		<div class="row animated fadeIn">
+			<div class="col-sm-4">
+				<img src="img/1619604_10207211694679498_6930646708314516638_n.jpg"  alt = "Beniamino Daniele" class="img-circle center-block" height="150" />
+			</div>
+			<div class="col-sm-8">
+				<h3 class="mg-md">
+					Beniamino Daniele
+				</h3>
+				<p>
+					Studente di Ingegneria informatica presso l'università La Sapienza di Roma
+				</p><a href="https://twitter.com/BeniaminoDaniel" target="_blank"><span class="fa fa-twitter-square icon-md pull-left"></span></a>
+            </div>
+		</div>
+		<div class="row voffset animated fadeIn">
+			<div class="col-sm-4">
+				<img src="img/10401366_10205380202295178_400043565918048643_n.jpg"  alt = "Ilaria di Lucia" class="img-circle center-block" height="150" />
+			</div>
+			<div class="col-sm-8">
+				<h3 class="mg-md">
+					Ilaria di Lucia
+				</h3>
+				<p>
+					Studentessa di Ingegneria informatica presso l'università La Sapienza di Roma
+				</p><a href="https://twitter.com/IlydiLucia" target="_blank"><span class="fa fa-twitter-square icon-md pull-left"></span></a>
+            </div>
+		</div>
+	</div>
+</div>
+<!-- bloc-8 END -->
+
+<!-- bloc-9 -->
+<div class="bloc l-bloc bgc-white" id="bloc-9">
+	<div class="container">
+		<div class="row animated fadeIn">
+			<div class="col-sm-4">
+				<img src="img/11219156_10205475256514117_6157401488594096088_n.jpg" alt = "Gianluca Galli " class="img-circle center-block" height="150" />
+			</div>
+			<div class="col-sm-8">
+				<h3 class="mg-md">
+					Gianluca Galli
+				</h3>
+				<p>
+					Studente di Ingegneria informatica presso l'università La Sapienza di Roma.<br />Game Designer, Youtuber presso JFtech
+				</p><a href="https://twitter.com/JFtechOfficial" target="_blank"><span class="fa fa-twitter-square icon-md pull-left"></span></a>
+			</div>
+		</div>
+		<div class="row voffset animated fadeIn">
+			<div class="col-sm-4">
+				<img src="img/12314277_1012202162165048_5521974717843396068_o.jpg" alt="Alessandra Griesi" class="img-circle center-block" height="150" />
+			</div>
+			<div class="col-sm-8">
+				<h3 class="mg-md">
+					Alessandra Griesi
+				</h3>
+				<p>
+					Studentessa di Ingegneria informatica presso l'università La Sapienza di Roma.
+				</p><a href="https://twitter.com/alessgri" target="_blank"><span class="fa fa-twitter-square icon-md pull-left"></span></a>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- bloc-9 END -->
+
+<!-- Footer - bloc-10 -->
+<div class="bloc l-bloc bgc-white" id="bloc-10">
+    <div class="container bloc-lg">
+        <div class="row">
+            <div class="col-sm-3">
+                <h3 class="mg-md text-center">
+                    About
+                </h3>
+                <div class="text-center">
+                    <a class="a-btn" href="/about">The app</a>
+                </div>
+                <div class="text-center">
+                    <a class="a-btn" href="/about#team">The team</a>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <h3 class="mg-md text-center">
+                    Open project
+                </h3>
+                <div class="text-center">
+                    <a href="https://github.com/inbetweetterTeam/InBeTweetter" class="a-btn" target="_blank">GitHub</a>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <h3 class="mg-md text-center">
+                    Follow us
+                </h3>
+                <div class="text-center">
+                    <a href="https://twitter.com/JFtechOfficial" class="a-btn" target="_blank">Twitter</a>
+                </div>
+                <div class="text-center">
+                    <a href="https://www.facebook.com/JFtechOfficial/" class="a-btn" target="_blank">Facebook</a>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <h3 class="text-center mg-sm">
+                    Official partner
+                </h3><a href="https://www.youtube.com/channel/UCHVYUIHCpWdqdW0ALlMS9Hg?sub_confirmation=1" target="_blank"><img src="img/icon%20senza%20sfondo.png" class="img-responsive center-block" alt="JFTech" width="80" /></a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer - bloc-10 END -->
+</div>
+<!-- Main container END -->
+
+</body>
+    
+<!-- Google Analytics -->
+
+<!-- Google Analytics END -->
+
+</html>

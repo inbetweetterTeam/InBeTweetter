@@ -1,0 +1,46 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#map {
+  height: 100%;
+}
+.controls {
+  position: absolute;
+  margin-top: 10px;
+  border: 1px solid transparent;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  height: 15px;
+  outline: none;
+  width: 300px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+#pac-input {
+  position: absolute;
+  top: 5px;
+  background-color: #fff;
+  font-size: 15px;
+  font-weight: 300;
+  margin-left: 10px;
+  margin-top: 10px;
+  padding: 0 13px 0 13px;
+  text-overflow: ellipsis;
+  width: 300px;
+  left: 30%;
+  z-index: 5;
+  padding: 5px;
+  border: 1px solid #999;
+  text-align: left;
+  font-family: 'Roboto','sans-serif';
+  line-height: 20px;
+  padding-left: 10px;
+}
+#pac-input:focus {
+  border-color: #4d90fe;
+}
+.pac-container {
+  font-family: Roboto;
+}

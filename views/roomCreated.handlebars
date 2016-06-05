@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="IBT, InBeTweetter, inbetweetter, tweetter, twitter, Twitter, Tweetter">
+    <meta name="description" content="InBeTweetter is the best way to meet your friends and loved ones. Thanks to an algorithm we created, we can suggest you the meeting location that is the nearest to the position of every invited person. An easier way to plan your hangouts.">
+    <link rel="icon" type="image/png" href="https://inbetweetter.herokuapp.com/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+     <!-- Material Design CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+    <!--<link rel="stylesheet" href="https://rawgit.com/FezVrasta/bootstrap-material-design/master/dist/css/material.min.css" />-->
+     <!-- MaterializeCSS + default -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<link rel="stylesheet" href="./css/animate.min.css" />
+    <link rel="stylesheet" href="./css/mapData.css">
+   	<script src="./js/jquery-2.1.0.min.js"></script>
+	<script src="./js/bootstrap.min.js"></script>
+    <script src="./js/button.js"> </script>
+    <script src="./js/data.js"> </script>
+    <script src="./js/map.js"> </script>
+	<script src="./js/blocs.min.js"></script>
+    <link rel='stylesheet' href='./css/font-awesome.min.css'/>
+    <link rel='stylesheet' href='./css/ionicons.min.css'/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!-- DateTimePicker -->
+    <link rel="stylesheet" href="./css/bootstrap-material-datetimepicker.css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel='stylesheet' type='text/css'>
+
+    <script src="https://code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://rawgit.com/FezVrasta/bootstrap-material-design/master/dist/js/material.min.js"></script>
+    <!--<script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>-->
+    <script type="text/javascript" src="./js/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="./js/bootstrap-material-datetimepicker.js"></script>
+    <!-- Materialize -->
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <title>InBeTweetter</title>
+</head>
+<body>
+
+<!-- Main container -->
+<div class="page-container">
+
+<!-- Navigation Bloc -->
+<div id="b-nav" class="bloc-container">
+    <div id="bloc-nav" class="d-mode">
+        <div class="bloc l-bloc bgc-white" id="nav-bloc">
+            <div class="container bloc-sm">
+                <nav class="navbar row">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href=""><img src="img/backup-icon1.png" alt="logo" width="75" />InBeTweetter</a>
+                    </div>
+                    <ul class="site-navigation nav navbar-nav">
+                        <a class='dropdown-button btn btn-cornflower-blue' data-beloworigin="true" href='#' id ="drooms" data-activates='dropdown1'>ROOMS</a>
+                        <ul id='dropdown1' class='dropdown-content'>
+                            {{#rooms}}
+                            <li><a href=/room/{{id}}>{{name}}</a></li>
+                            {{/rooms}}
+                            <li class="divider"></li>
+                            <li><a href="/room">new room</a></li>
+                            <li><a href="/leave-room">leave this room</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/logout"><font color="dd2929">Log-out</font></a></li>
+                        </ul>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Navigation Bloc END -->
+
+<!-- Bloc Group -->
+<div class='bloc-group'>
+
+<!-- bloc-1 -->
+<div class="bloc l-bloc bgc-white bloc-tile-4" id="bloc-1">
+	<div class="container">
+		<div class="row voffset">
+            {{#persData}}
+            <div class="col-sm-6">
+                <img src="{{photo}}" class="img-responsive img-circle pull-right" width="50" />
+            </div>
+            <div class="col-sm-6">
+                <h4 class="mg-md ">
+                    {{name}}
+                </h4>
+                </br>
+            </div>
+            {{/persData}}
+            </br>
+            <a id="inv-button" href="#modal1" class="btn   btn-lg btn-cornflower-blue pull-right"><span class="fa fa-twitter icon-spacer"></span>Add Friends</a>
+            <!-- Modal Structure -->
+            <div id="modal1" class="modal modal-fixed-footer">
+                <div class="modal-content">
+                    <h4>INVITE YOUR FRIENDS</h4>
+                    </br>
+                    {{#name}}
+                    <div class="row">
+                        <div class="col-sm-1"><img src={{photo}} class="img-responsive img-circle" width="50" /></div>
+                        <div class="col-sm-3"><h4 class="mg-md "> {{text}} </h4></div>
+                        <div class="col-sm-6">
+                            <h6 class="mg-md " id="send_tag">
+                                <font color="909090"> @{{tag}} </font>
+                            </h6>
+                        </div>
+                        <div class="col-sm-1"><p>
+                            <input type="checkbox" name = "check" class="filled-in" id="{{tag}}" title ="{{user_id}}" />
+                            <label for="{{tag}}" id="lcheck{{tag}}"></label>
+                        </p></div>
+                    </div>
+                    {{/name}}
+                </div>
+                <div class="modal-footer">
+                    <button id="btnCanc" class="dtp-btn-ok btn btn-flat pull-left" href="#!"> Cancel </button>
+                    <button class="dtp-btn-ok btn btn-flat" href="#!" id = "send"> Send </button>
+                </div>
+            </div>
+		</div>
+	</div>
+</div>
+<!-- bloc-1 END -->
+
+<!-- bloc-2 -->
+<div class="bloc l-bloc bgc-white bloc-tile-2" id="bloc-2">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+                <img id="tutorial" src="img/ibt-tut1,5789.png" class="img-responsive" alt= "Instructions, Tutorial on how to use InBeTweetter"/>
+                <img id="tutorialpos" src="img/ibt-tut-insert.png" class="img-responsive" alt= "Instructions, Tutorial on how to use InBeTweetter" style="display:none"/>
+				<h3 id="insPos" class="mg-sm text-left" style="display: none">
+                     Insert your position:
+                </h3>
+                <input id="pac-input" type="text-center" placeholder="Enter a location" style="display: none">
+                <a id="showCurrentPos" class="btn  btn-sm btn-white" style="background: white; margin-top: 13px; margin-right: 10px; display: none"><span class="ion ion-android-locate icon-sm"></span></a>
+                <div id="type-selector" class="controls" style="display:none">
+                  <input type="radio" name="type" id="changetype-all" checked="checked">
+                  <label for="changetype-all">All</label>
+
+                  <input type="radio" name="type" id="changetype-establishment">
+                  <label for="changetype-establishment">Establishments</label>
+
+                  <input type="radio" name="type" id="changetype-address">
+                  <label for="changetype-address">Addresses</label>
+
+                  <input type="radio" name="type" id="changetype-geocode">
+                  <label for="changetype-geocode">Geocodes</label>
+                </div>
+                <div id="map" onload="choice()" style="width:600px;height:380px; display: none"></div>
+                <br>
+                <script>
+                    var input = document.getElementById('pac-input');
+                    var autPos = document.getElementById('showCurrentPos');
+                </script>
+                <button id="btnCanc1" class="dtp-btn-ok btn btn-flat pull-left" href="#!" style="display: none"> Cancel </button>
+                <button id = "update" class="dtp-btn-ok btn btn-flat pull-right" href="#!" style="display: none"> Update </button>
+                <script async defer
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhTXcr2TmyPUQwKgFgI2glofUe18JYyR0&libraries=places&callback=choice">
+                </script>
+			</div>
+		</div>
+        <!--<p class="text-center mg-sm"><i>Rooms will expire 24h after the scheduled meeting time</i></p> -->
+	</div>
+</div>
+<!-- bloc-2 END -->
+
+<!-- bloc-3 -->
+<div class="bloc l-bloc bgc-white bloc-tile-4" id="bloc-3">
+	<div class="container">
+		<div class="row animated fadeIn">
+			<div class="col-lg-12">
+				<h3 id="eventName" class="mg-sm text-left" title="Name of the current event">
+					 {{roomName}}
+				</h3>
+                <div class="input-field col s9">
+                    <i class="material-icons prefix">mode_edit</i>
+                    <input id="room_name" onfocus="$('#btnOK').show()" type="text" class="materialize-textarea" maxlength="25" title="Click here to modify the name of the current event">
+                        <label for="room_name"> Name</label>
+                        <div>
+                            <input type="text" id="date-format" class="form-control floating-label" placeholder="Date & Time" title="The day and time of the established meeting">
+                        </div>
+                </div>
+                <script>
+                $(document).ready(function(){
+                    $("#date-format").val("{{roomTime}}");
+                    $("#manual").val("{{addr}}");
+                    $("#room_name").val("{{roomName}}");
+                });
+                </script>
+                <div>
+                    <a id="btnOK" style="display: none" href='#' class="btn btm-sm btn-cornflower-blue">OK</a>
+                </div>
+                <div class="input-field col s11">
+                    <h3 class="mg-sm text-left">
+                        Your Position
+                    </h3>
+                </div>
+                <div class="input-field col s11">
+          			<input id="manual" href="#modal2" type="text" class="materialize-textarea" title="Click here to manage your position">
+        		</div>
+        	</div>
+        </div>
+	</div>
+</div>
+
+<!-- bloc-3 END -->
+</div>
+<!-- Bloc Group END -->
+
+<!-- Footer - bloc-10 -->
+<div class="bloc l-bloc bgc-white" id="bloc-10">
+	<div class="container bloc-lg">
+		<div class="row">
+			<div class="col-sm-3">
+				<h3 class="mg-md text-center">
+					About
+				</h3>
+                <div class="text-center">
+                    <a class="a-btn" href="/about">The app</a>
+                </div>
+				<div class="text-center">
+					<a class="a-btn" href="/about#team">The team</a>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<h3 class="mg-md text-center">
+					Open project
+				</h3>
+				<div class="text-center">
+					<a href="https://github.com/inbetweetterTeam/InBeTweetter" class="a-btn" target="_blank">GitHub</a>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<h3 class="mg-md text-center">
+					Follow us
+				</h3>
+				<div class="text-center">
+					<a href="https://twitter.com/JFtechOfficial" class="a-btn" target="_blank">Twitter</a>
+				</div>
+				<div class="text-center">
+					<a href="https://www.facebook.com/JFtechOfficial/" class="a-btn" target="_blank">Facebook</a>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<h3 class="text-center mg-sm">
+					Official partner
+				</h3><a href="https://www.youtube.com/channel/UCHVYUIHCpWdqdW0ALlMS9Hg?sub_confirmation=1" target="_blank"><img src="img/icon%20senza%20sfondo.png" class="img-responsive center-block" width="80" alt= "JFTech"/></a>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Footer - bloc-10 END -->
+</div>
+<!-- Main container END -->
+
+</body>
+
+<!-- Google Analytics -->
+
+<!-- Google Analytics END -->
+
+</html>
