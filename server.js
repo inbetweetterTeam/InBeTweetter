@@ -41,8 +41,9 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 var requestTokenUrl = "https://api.twitter.com/oauth/request_token";
 
 //To be obtained from the app created on Twitter
-var CONSUMER_KEY = "";
-var CONSUMER_SECRET = "";
+var CONSUMER_KEY = "Fo9SMAJoJuzNjEcBlUJfqb1UE";
+var CONSUMER_SECRET = "IqfAqQCkagl4XtmolNbkz5BHhJTifGz4PwodDhLg9ckIaitcDc";
+
 var authenticationData = {
     consumer_key: '',
     consumer_secret: '',
@@ -127,7 +128,7 @@ app.get("/callback", function(req,res) {
         var infoUser = "https://api.twitter.com/1.1/users/show.json?" + "screen_name=" + authenticatedData.screen_name;
         request.get({url: infoUser, oauth: authenticationData, json: true}, function(e, r, body) {
             authenticationData.name = body['name'];
-            authenticationData.photo = body['profile_image_url']
+            authenticationData.photo = body['profile_image_url_https']
             var Data = {
                 authData: authenticationData,
                 room: ""
@@ -137,12 +138,12 @@ app.get("/callback", function(req,res) {
 
 		var hasRoom = req.cookies['room'];
         setTimeout(function(){
-	        if (hasRoom != null) {
-	            res.redirect("/room/" + hasRoom);
-	        } else {
+	        if (hasRoom != null) { 
+	            res.redirect("/room/" + hasRoom); 
+	        } else { 
 	            res.redirect("/room");
 	        }
-        }, 800);
+        }, 800);   
     });
 });
 
@@ -166,7 +167,7 @@ app.get("/room/:roomid", function(req,res) {
                 var joinati = new Firebase('https://amber-heat-2218.firebaseio.com/stanze/'+room+'/joinati');
                 var roomPers = new Firebase('https://amber-heat-2218.firebaseio.com/persone/'+hasCookie+'/room');
                 var Pers = new Firebase('https://amber-heat-2218.firebaseio.com/persone/'+hasCookie);
-
+                
                 stanza.once("value", function(l){
                     if(l.exists()){
                         //la persona corrente deve passare da invitati a joinati
@@ -216,7 +217,7 @@ app.get("/room/:roomid", function(req,res) {
                                                         for (j in body[i]) {
                                                             var tweetObj = body[i][j];
                                                             if (tweetObj.name != undefined) {
-                                                                name.push({text: tweetObj.name, photo: tweetObj.profile_image_url, tag: tweetObj.screen_name, user_id: tweetObj.id_str});
+                                                                name.push({text: tweetObj.name, photo: tweetObj.profile_image_url_https, tag: tweetObj.screen_name, user_id: tweetObj.id_str});
                                                             }
                                                         }
                                                     }
@@ -285,7 +286,7 @@ app.get("/room/:roomid", function(req,res) {
                                                                 for (j in body[i]) {
                                                                     var tweetObj = body[i][j];
                                                                     if (tweetObj.name != undefined) {
-                                                                        name.push({text: tweetObj.name, photo: tweetObj.profile_image_url, tag: tweetObj.screen_name, user_id: tweetObj.id_str});
+                                                                        name.push({text: tweetObj.name, photo: tweetObj.profile_image_url_https, tag: tweetObj.screen_name, user_id: tweetObj.id_str});
                                                                     }
                                                                 }
                                                             }
@@ -360,7 +361,7 @@ app.get("/room/:roomid", function(req,res) {
                                                 for(j in body[i]){
                                                     var tweetObj = body[i][j];
                                                     if(tweetObj.name != undefined){
-                                                        name.push({text:tweetObj.name, photo: tweetObj.profile_image_url, tag: tweetObj.screen_name, user_id: tweetObj.id_str});
+                                                        name.push({text:tweetObj.name, photo: tweetObj.profile_image_url_https, tag: tweetObj.screen_name, user_id: tweetObj.id_str});
                                                     }
                                                 }
                                             }
@@ -403,14 +404,18 @@ app.post("/send-message", function(req,res) {
 	var room = req.headers.referer;
 	var ref = new Firebase('https://amber-heat-2218.firebaseio.com/stanze/'+req.body.roomid+'/invitati');
 	ref.child(userid).set("");
+    var count = 0;
 	Persone.orderByKey().on('child_added',function(s) {
         if (s.key() == req.cookies['ibt']) {
             s.forEach(function(d){
                 if (d.key() == "authData") {
+                    count++;
                     authenticationData = d.val();
-                    var messUrl = "https://api.twitter.com/1.1/direct_messages/new.json" + "?"
-                                  + qs.stringify({text: "I invite you to the event:  " + room, screen_name: tag});
-                    request.post({url: messUrl, oauth: authenticationData, json:true});
+                    if(count == 1){
+                        var messUrl = "https://api.twitter.com/1.1/direct_messages/new.json" + "?"
+                                      + qs.stringify({text: "I invite you to the event:  " + room, screen_name: tag});
+                        request.post({url: messUrl, oauth: authenticationData, json:true});
+                    }
                 }
             });
         }
@@ -442,12 +447,14 @@ app.post("/send-notifications", function(req,res){
     var time_date = req.body.time_date;
     var room_name = req.body.room_name;
     var room = req.headers.referer;
+    var count = 0;
     if(time_date != undefined){
         var roomid = new Firebase('https://amber-heat-2218.firebaseio.com/stanze/'+req.body.roomid+'/joinati');
         Persone.orderByKey().on('child_added',function(s) {
             if (s.key() == req.cookies['ibt']) {
                 s.forEach(function(d){
                     if (d.key() == "authData") {
+                        count++;
                         authenticationData = d.val();
                         roomid.once("value", function(p){
                             var pers = p.val();
@@ -458,9 +465,11 @@ app.post("/send-notifications", function(req,res){
                                 }
                             }
                             for(i in people){
-                                var messUrl = "https://api.twitter.com/1.1/direct_messages/new.json" + "?"
-                                      + qs.stringify({text: "I changed the meeting time-date in the event:  " + room, user_id: people[i]['id']});
-                                request.post({url: messUrl, oauth: authenticationData, json:true});
+                                if(count == 1){
+                                    var messUrl = "https://api.twitter.com/1.1/direct_messages/new.json" + "?"
+                                          + qs.stringify({text: "I changed the meeting time-date in the event:  " + room, user_id: people[i]['id']});
+                                    request.post({url: messUrl, oauth: authenticationData, json:true});
+                                }
                             }
                         });
                     }
@@ -473,6 +482,7 @@ app.post("/send-notifications", function(req,res){
             if (s.key() == req.cookies['ibt']) {
                 s.forEach(function(d){
                     if (d.key() == "authData") {
+                        count++;
                         authenticationData = d.val();
                         roomid.once("value", function(p){
                             var pers = p.val();
@@ -483,16 +493,18 @@ app.post("/send-notifications", function(req,res){
                                 }
                             }
                             for(i in people){
-                                var messUrl = "https://api.twitter.com/1.1/direct_messages/new.json" + "?"
-                                      + qs.stringify({text: "I changed the name of the event:  " + room, user_id: people[i]['id']});
-                                request.post({url: messUrl, oauth: authenticationData, json:true});
+                                if(count == 1){
+                                    var messUrl = "https://api.twitter.com/1.1/direct_messages/new.json" + "?"
+                                          + qs.stringify({text: "I changed the name of the event:  " + room, user_id: people[i]['id']});
+                                    request.post({url: messUrl, oauth: authenticationData, json:true});
+                                }
                             }
                         });
                     }
                 });
             }
         });
-    }
+    } 
 });
 
 app.post("/create-room", function(req,res){
@@ -543,6 +555,7 @@ app.post("/create-room", function(req,res){
             });
         } else {
             var r = {
+                creator: req.cookies['ibt'],
                 data: {
                     name: room,
                     time_date: "",
@@ -644,13 +657,12 @@ app.get("/logout", function(req,res){
 app.get("/leave-room",function(req,res){
     var url = req.headers.referer;
     var roomid = url.split("/")[4];
-
     //Delete this person from the room
     var room = new Firebase('https://amber-heat-2218.firebaseio.com/persone/'+req.cookies['ibt']+"/room/"+roomid);
     var joinati = new Firebase('https://amber-heat-2218.firebaseio.com/stanze/'+roomid+'/joinati');
     room.remove();
     var count = 0;
-    joinati.once("value", function(d){ // non funziona
+    joinati.once("value", function(d){ 
         d.forEach(function(p){
             if(p.key() == req.cookies['ibt']){
                 var person = new Firebase('https://amber-heat-2218.firebaseio.com/stanze/'+roomid+'/joinati/'+p.key());
@@ -669,7 +681,21 @@ app.get("/leave-room",function(req,res){
             }
         });
     });
-    res.redirect("/room");
+    var stanza = new Firebase('https://amber-heat-2218.firebaseio.com/persone/'+req.cookies['ibt']+"/room");
+    stanza.once("value",function(s){
+        if(s.hasChildren()){
+            var st = s.val();
+            var count = 0;
+            for(i in st){
+                count++;
+                if(count == 1){
+                    res.redirect("/room/" + i);
+                }
+            }
+        }else{
+            res.redirect("/room");
+        }
+    }); 
 });
 
 /*app.get("/delete-account", function(req,res){
@@ -681,7 +707,7 @@ app.get("/leave-room",function(req,res){
 var router = express.Router(); // get an instance of the express Router
 
 
-// test route to make sure everything is working (accessed at GET http://localhost:3000/api)
+// test route to make sure everything is working (accessed at GET http://inbetweetter.herokuapp.com/api)
 router.get('/', function(req, res) {
     res.json({ message: 'Welcome to the InBeTweetter API.' });
 });

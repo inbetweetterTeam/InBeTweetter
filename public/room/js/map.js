@@ -28,6 +28,7 @@ function choice() { // controlla se esiste la room
                 middle();
             } else{
                 roomexists = "0"; //la room non esiste
+                $("#tutorial").show();
                 $("#inv-button").attr("disabled","disabled");
             }
         }, "text");

@@ -54,6 +54,9 @@ $(document).ready(function(){
     //Create/update name-room 
     $('#btnOK').click(function() { // stanza creata
         if ($('#room_name').val() != '') {
+            $("#date-format").fadeIn("slow");
+            $("#manual").fadeIn("slow");
+            $("#manualp").fadeIn("slow");
             $("#inv-button").removeAttr("disabled");
             $('#eventName').text($('#room_name').val());
             $.post('/create-room',{
@@ -67,11 +70,15 @@ $(document).ready(function(){
             if (roomexists != "1") { // se la stanza non esiste deve partire manualPos
                 $('#insPos').show();
                 $('#tutorial').hide();
-                $('#map').show();
-                $('#pac-input').show();
-                $('#showCurrentPos').show();
-                $('#btnCanc1').show();
-                manualPos();
+                setTimeout(function(){
+                    $('#map').show();
+                    $('#pac-input').show();
+                    $('#showCurrentPos').show();
+                    $('#btnCanc1').show();
+                    manualPos();
+                },300)
+                
+                
                 roomexists = "1";
             } //altrimenti cambio solo il nome e non parte manualPos
         } else {

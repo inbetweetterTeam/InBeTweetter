@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="keywords" content="IBT, InBeTweetter, inbetweetter, tweetter, twitter, Twitter, Tweetter">
     <meta name="description" content="InBeTweetter is the best way to meet your friends and loved ones. Thanks to an algorithm we created, we can suggest you the meeting location that is the nearest to the position of every invited person. An easier way to plan your hangouts.">
-    <link rel="shortcut icon" type="image/png" href="https://inbetweetter.herokuapp.com/favicon.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="./room/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
      <!-- Material Design CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
-    <!--<link rel="stylesheet" href="https://rawgit.com/FezVrasta/bootstrap-material-design/master/dist/css/material.min.css" />-->
      <!-- MaterializeCSS + default -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
@@ -22,7 +22,9 @@
     <script src="./js/data.js"></script>
     <script src="./js/map.js"></script>
 	<script src="./js/button.js"></script>
-	<script src="./js/blocs.min.js"></script><link rel='stylesheet' href='./css/font-awesome.min.css'/><link rel='stylesheet' href='./css/ionicons.min.css'/>
+	<!--<script src="./js/blocs.min.js"></script>-->
+    <link rel='stylesheet' href='./css/font-awesome.min.css'/>
+    <link rel='stylesheet' href='./css/ionicons.min.css'/>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <!-- DateTimePicker -->
     <link rel="stylesheet" href="./css/bootstrap-material-datetimepicker.css" />
@@ -31,7 +33,6 @@
     <script src="https://code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://rawgit.com/FezVrasta/bootstrap-material-design/master/dist/js/material.min.js"></script>
-    <!--<script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>-->
     <script type="text/javascript" src="./js/moment-with-locales.min.js"></script>
     <script type="text/javascript" src="./js/bootstrap-material-datetimepicker.js"></script>
     <!-- Materialize -->
@@ -116,14 +117,13 @@
 <div class="bloc l-bloc bgc-white bloc-tile-2" id="bloc-2">
 	<div class="container">
 		<div class="row">
-			<div class="col-sm-12">
-                <img id="tutorial" src="img/ibt-tut1,5789.png" class="img-responsive" alt= "Instructions, Tutorial on how to use InBeTweetter"/>
+			<div class="col-sm-12 animated fadeIn">
+                <img id="tutorial" src="img/ibt-tut1,5789.png" class="img-responsive" alt= "Instructions, Tutorial on how to use InBeTweetter" style="display:none"/>
                 <img id="tutorialpos" src="img/ibt-tut-insert.png" class="img-responsive" alt= "Instructions, Tutorial on how to use InBeTweetter" style="display:none"/>
 				<h3 id="insPos" class="mg-sm text-left" style="display: none">
                      Insert your position:
                 </h3>
                 <input id="pac-input" type="text-center" placeholder="Enter a location" style="display: none">
-                <!--<input id="submit" type="button" value="Cerca" style="display: none">-->
                 <a id="showCurrentPos" class="btn  btn-sm btn-white"style="background: white; margin-top: 13px; margin-right: 10px; display: none"><span class="ion ion-android-locate icon-sm"></span></a>
                 <div id="type-selector" class="controls" style="display:none">
                   <input type="radio" name="type" id="changetype-all" checked="checked">
@@ -138,11 +138,6 @@
                   <input type="radio" name="type" id="changetype-geocode">
                   <label for="changetype-geocode">Geocodes</label>
                 </div>
-                <!--<div id="floating-panel" style="display: none">
-                    <input id="address" type="textbox" placeholder="Enter a location">
-                    <input id="submit" type="button" value="Cerca">
-                    <a id="showCurrentPos" class="btn  btn-sm btn-white"><span class="ion ion-android-locate icon-sm"></span></a>
-                </div>-->
                 <div id="map" onload="choice()" style="width:600px;height:380px; display: none"></div>
                 <br>
                 <script>
@@ -172,21 +167,21 @@
                 <div class="input-field col s9">
                     <i class="material-icons prefix">mode_edit</i>
                     <input id="room_name" title="Click here to modify the name of the current event" onfocus="$('#btnOK').show()" type="text" class="materialize-textarea" maxlength="25">
-                        <label for="room_name">Name</label>
-                        <div>
-                            <input type="text" id="date-format" class="form-control floating-label" placeholder="Date & Time" title="The day and time of the established meeting">
-                        </div>
+                    <label for="room_name">Name</label>
+                    <div >
+                        <input type="text" id="date-format" class="form-control floating-label" placeholder="Date & Time" style="display:none" title="The day and time of the established meeting">
+                    </div>
                 </div>
                 <div>
                     <a id="btnOK" style="display: none" href='#' class="btn btm-sm btn-cornflower-blue">OK</a>
                 </div>
                 <div class="input-field col s11">
-                    <h3 class="mg-sm text-left">
+                    <h3 id="manualp" style= "display:none" class="mg-sm text-left">
                         Your Position
                     </h3>
                 </div>
                 <div class="input-field col s11">
-          			<input id="manual" href="#modal2" type="text" class="materialize-textarea" title="Click here to manage your position">
+          			<input id="manual" href="#modal2" type="text" class="materialize-textarea" style= "display:none" placeholder="Insert your position in the map" title="Click here to manage your position">
         		</div>
         	</div>
         </div>

@@ -34,7 +34,6 @@ function getHeroHeight()
 	}
 	return H
 }
-
 // Check hero height
 function checkHero()
 {
