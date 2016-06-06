@@ -41,8 +41,8 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 var requestTokenUrl = "https://api.twitter.com/oauth/request_token";
 
 //To be obtained from the app created on Twitter
-var CONSUMER_KEY = "";
-var CONSUMER_SECRET = "";
+var CONSUMER_KEY = "GQd9x58Yv4tMY7PddjB0ElUBD";
+var CONSUMER_SECRET = "Nfz24ba8IVndoMlUNN86WzXg3t9vSD06es3hUUQfrfkBwNHdO7";
 
 var authenticationData = {
     consumer_key: '',
@@ -138,12 +138,12 @@ app.get("/callback", function(req,res) {
 
 		var hasRoom = req.cookies['room'];
         setTimeout(function(){
-	        if (hasRoom != null) {
-	            res.redirect("/room/" + hasRoom);
-	        } else {
+	        if (hasRoom != null) { 
+	            res.redirect("/room/" + hasRoom); 
+	        } else { 
 	            res.redirect("/room");
 	        }
-        }, 800);
+        }, 800);   
     });
 });
 
@@ -167,7 +167,7 @@ app.get("/room/:roomid", function(req,res) {
                 var joinati = new Firebase('https://amber-heat-2218.firebaseio.com/stanze/'+room+'/joinati');
                 var roomPers = new Firebase('https://amber-heat-2218.firebaseio.com/persone/'+hasCookie+'/room');
                 var Pers = new Firebase('https://amber-heat-2218.firebaseio.com/persone/'+hasCookie);
-
+                
                 stanza.once("value", function(l){
                     if(l.exists()){
                         //la persona corrente deve passare da invitati a joinati
@@ -244,7 +244,9 @@ app.get("/room/:roomid", function(req,res) {
                                                                                 var addr = inf.val();
                                                                                 var persData = [];
                                                                                 for(i in addr){
-                                                                                    persData.push({name: addr[i]['name'], photo: addr[i]['photo']});
+                                                                                    if(i != hasCookie){
+                                                                                        persData.push({name: addr[i]['name'], photo: addr[i]['photo']});
+                                                                                    }
                                                                                 }
                                                                                 for(j in addr){
                                                                                     if(j == req.cookies['ibt']){
@@ -253,7 +255,8 @@ app.get("/room/:roomid", function(req,res) {
                                                                                             rooms: rooms,
                                                                                             roomName: dat['name'],
                                                                                             roomTime: dat['time_date'],
-                                                                                            persData: persData
+                                                                                            persData: persData,
+                                                                                            persPhoto: authenticationData['photo']
                                                                                         };
                                                                                         res.render("roomCreated", viewData);
                                                                                     }
@@ -313,7 +316,9 @@ app.get("/room/:roomid", function(req,res) {
                                                                                         var addr = inf.val();
                                                                                         var persData = [];
                                                                                         for(i in addr){
-                                                                                            persData.push({name: addr[i]['name'], photo: addr[i]['photo']});
+                                                                                            if(i != hasCookie){
+                                                                                                persData.push({name: addr[i]['name'], photo: addr[i]['photo']});
+                                                                                            }
                                                                                         }
                                                                                         for(j in addr){
                                                                                             if(j == req.cookies['ibt']){
@@ -323,7 +328,8 @@ app.get("/room/:roomid", function(req,res) {
                                                                                                     roomName: dat['name'],
                                                                                                     roomTime: dat['time_date'],
                                                                                                     persData: persData,
-                                                                                                    addr: addr[j]['address']
+                                                                                                    addr: addr[j]['address'],
+                                                                                                    persPhoto: authenticationData['photo']
                                                                                                 }
                                                                                                 res.render("roomCreated", viewData);
                                                                                             }
@@ -379,7 +385,8 @@ app.get("/room/:roomid", function(req,res) {
                                                     }
                                                     var viewData={
                                                         name: name,
-                                                        rooms: rooms
+                                                        rooms: rooms,
+                                                        persPhoto: authenticationData['photo']
                                                     };
                                                     res.render("roomCreation",viewData);
                                                 });
@@ -426,16 +433,22 @@ app.post("/send-message", function(req,res) {
 app.get("/about", function(req,res){
     if(req.cookies['ibt'] != null){
         var roomPerson = new Firebase('https://amber-heat-2218.firebaseio.com/persone/'+req.cookies['ibt']+'/room');
+        var Pers = new Firebase('https://amber-heat-2218.firebaseio.com/persone/'+req.cookies['ibt']);
         roomPerson.once("value", function(s) {
             var t = s.val();
             var rooms = [];
             for (i in t) {
                 rooms.push({id: i, name: t[i]['name']})
             }
-            var viewData ={
-                rooms: rooms
-            }
-            res.render("about",viewData);
+            Pers.once("value",function(p){
+                var data = p.val()['authData'];
+                console.log(data['photo']);
+                var viewData ={
+                    rooms: rooms,
+                    persPhoto: data['photo']
+                }
+                res.render("about",viewData);
+            });
         });
     }else{
         res.sendFile(path.join(__dirname, "/views","about.html"));
@@ -504,7 +517,7 @@ app.post("/send-notifications", function(req,res){
                 });
             }
         });
-    }
+    } 
 });
 
 app.post("/create-room", function(req,res){
@@ -650,7 +663,6 @@ app.post("/room-exists", function(req, res) {
 
 app.get("/logout", function(req,res){
     res.clearCookie("ibt");
-    console.log("Logout succeded.");
     res.redirect("/");
 });
 
@@ -662,7 +674,7 @@ app.get("/leave-room",function(req,res){
     var joinati = new Firebase('https://amber-heat-2218.firebaseio.com/stanze/'+roomid+'/joinati');
     room.remove();
     var count = 0;
-    joinati.once("value", function(d){
+    joinati.once("value", function(d){ 
         d.forEach(function(p){
             if(p.key() == req.cookies['ibt']){
                 var person = new Firebase('https://amber-heat-2218.firebaseio.com/stanze/'+roomid+'/joinati/'+p.key());
@@ -695,11 +707,18 @@ app.get("/leave-room",function(req,res){
         }else{
             res.redirect("/room");
         }
-    });
+    }); 
 });
 
-/*app.get("/delete-account", function(req,res){
-
+/*app.get("/delete-account", function(req,res){ ************* WORK IN PROGESS **************
+    var p = new Firebase('https://amber-heat-2218.firebaseio.com/persone');
+    p.once("value",function(pers){
+        if(pers.hasChild(req.cookies['ibt'])){
+            p.child(req.cookies['ibt']).remove();
+            res.clearCookie("ibt")
+            res.redirect("/");
+        }
+    });
 });*/
 
 /*******************************  ROUTES FOR OUR API  *******************************/
@@ -942,5 +961,5 @@ function delUsersRoom(id_room, id_person) {
 }
 
 app.listen(port, function(){
-    console.log('Server up: http://localhost:3000');
+    console.log('Server up at: https://inbetweetter.herokuapp.com' + "   at port: " + port);
 });
