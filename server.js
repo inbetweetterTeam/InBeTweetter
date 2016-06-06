@@ -41,8 +41,8 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 var requestTokenUrl = "https://api.twitter.com/oauth/request_token";
 
 //To be obtained from the app created on Twitter
-var CONSUMER_KEY = "GQd9x58Yv4tMY7PddjB0ElUBD";
-var CONSUMER_SECRET = "Nfz24ba8IVndoMlUNN86WzXg3t9vSD06es3hUUQfrfkBwNHdO7";
+var CONSUMER_KEY = "";
+var CONSUMER_SECRET = "";
 
 var authenticationData = {
     consumer_key: '',
