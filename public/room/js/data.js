@@ -7,11 +7,14 @@ $(document).ready(function(){
             $("#tutorial").hide();
             $("#tutorialpos").hide();
             $("#map").show();
-            $('#btnCanc1').show();
-            $('#pac-input').show();
-            $('#showCurrentPos').show();
-            $('#insPos').show();
             manualPos();
+            setTimeout(function(){
+                $('#btnCanc1').show();
+                $('#pac-input').show();
+                $('#showCurrentPos').show();
+                $('#insPos').show();
+                manualPos();
+            },500);
         } else { // se la stanza non esiste
             $('#pac-input').hide();
             $('#showCurrentPos').hide();

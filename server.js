@@ -41,8 +41,8 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 var requestTokenUrl = "https://api.twitter.com/oauth/request_token";
 
 //To be obtained from the app created on Twitter
-var CONSUMER_KEY = "Fo9SMAJoJuzNjEcBlUJfqb1UE";
-var CONSUMER_SECRET = "IqfAqQCkagl4XtmolNbkz5BHhJTifGz4PwodDhLg9ckIaitcDc";
+var CONSUMER_KEY = "";
+var CONSUMER_SECRET = "";
 
 var authenticationData = {
     consumer_key: '',
@@ -138,12 +138,12 @@ app.get("/callback", function(req,res) {
 
 		var hasRoom = req.cookies['room'];
         setTimeout(function(){
-	        if (hasRoom != null) { 
-	            res.redirect("/room/" + hasRoom); 
-	        } else { 
+	        if (hasRoom != null) {
+	            res.redirect("/room/" + hasRoom);
+	        } else {
 	            res.redirect("/room");
 	        }
-        }, 800);   
+        }, 800);
     });
 });
 
@@ -167,7 +167,7 @@ app.get("/room/:roomid", function(req,res) {
                 var joinati = new Firebase('https://amber-heat-2218.firebaseio.com/stanze/'+room+'/joinati');
                 var roomPers = new Firebase('https://amber-heat-2218.firebaseio.com/persone/'+hasCookie+'/room');
                 var Pers = new Firebase('https://amber-heat-2218.firebaseio.com/persone/'+hasCookie);
-                
+
                 stanza.once("value", function(l){
                     if(l.exists()){
                         //la persona corrente deve passare da invitati a joinati
@@ -504,7 +504,7 @@ app.post("/send-notifications", function(req,res){
                 });
             }
         });
-    } 
+    }
 });
 
 app.post("/create-room", function(req,res){
@@ -662,7 +662,7 @@ app.get("/leave-room",function(req,res){
     var joinati = new Firebase('https://amber-heat-2218.firebaseio.com/stanze/'+roomid+'/joinati');
     room.remove();
     var count = 0;
-    joinati.once("value", function(d){ 
+    joinati.once("value", function(d){
         d.forEach(function(p){
             if(p.key() == req.cookies['ibt']){
                 var person = new Firebase('https://amber-heat-2218.firebaseio.com/stanze/'+roomid+'/joinati/'+p.key());
@@ -695,7 +695,7 @@ app.get("/leave-room",function(req,res){
         }else{
             res.redirect("/room");
         }
-    }); 
+    });
 });
 
 /*app.get("/delete-account", function(req,res){

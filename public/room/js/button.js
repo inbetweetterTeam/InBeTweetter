@@ -72,13 +72,13 @@ $(document).ready(function(){
                 $('#tutorial').hide();
                 setTimeout(function(){
                     $('#map').show();
+                    manualPos();
+                },300);
+                setTimeout(function(){
                     $('#pac-input').show();
                     $('#showCurrentPos').show();
                     $('#btnCanc1').show();
-                    manualPos();
-                },300)
-                
-                
+                },500);
                 roomexists = "1";
             } //altrimenti cambio solo il nome e non parte manualPos
         } else {
